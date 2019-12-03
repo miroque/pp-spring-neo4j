@@ -1,10 +1,16 @@
-package ru.miroque.pp_spring_neo4j; 
+package ru.miroque.pp_spring_neo4j;
+
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@RepositoryRestResource(collectionResourceRel = "people", path = "people")
-public interface PersonRepository extends CrudRepository<Person, Long> {
+import ru.miroque.pp.domains.Person;
 
-	Person findByName(String name);
+@RepositoryRestResource(collectionResourceRel = "users", path = "users")
+public interface PersonRepository extends CrudRepository<Person, UUID> {
+
+    Person findByLogin(String login);
+    Optional<Person> findById(String id);
 }
