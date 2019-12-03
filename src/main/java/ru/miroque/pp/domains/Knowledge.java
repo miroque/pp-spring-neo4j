@@ -11,8 +11,8 @@ import org.neo4j.ogm.id.UuidStrategy;
 @NodeEntity
 public class Knowledge {
     @Id
-    @GeneratedValue(strategy = UuidStrategy.class)
-    private String id;
+    @GeneratedValue
+    private Long id;
     private LocalDateTime recalculated;
     private String name;
     private Integer level;
@@ -20,11 +20,11 @@ public class Knowledge {
     public Knowledge() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

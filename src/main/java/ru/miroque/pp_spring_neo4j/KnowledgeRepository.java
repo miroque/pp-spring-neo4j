@@ -10,7 +10,7 @@ import ru.miroque.pp.domains.Knowledge;
 import ru.miroque.pp.domains.Person;
 
 @RepositoryRestResource(collectionResourceRel = "knowledges", path = "knowledges")
-public interface KnowledgeRepository extends CrudRepository<Knowledge, UUID> {
+public interface KnowledgeRepository extends CrudRepository<Knowledge, Long> {
 
     Knowledge findByName(String name);
 
