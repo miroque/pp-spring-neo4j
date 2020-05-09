@@ -18,6 +18,7 @@ package ru.miroque.pp.domains;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -51,10 +52,10 @@ public class Person {
     }
 
     @Relationship(type = "KNOW", direction = Relationship.UNDIRECTED)
-    public Set<Knowledge> knowledges;
+    public List<Knowledge> knowledges;
 
     public String toString() {
-        return this.login + "'s knowledges => " + Optional.ofNullable(this.knowledges).orElse(Collections.emptySet())
+        return this.login + "'s knowledges => " + Optional.ofNullable(this.knowledges).orElse(Collections.emptyList())
                 .stream().map(Knowledge::getName).collect(Collectors.toList());
     }
 

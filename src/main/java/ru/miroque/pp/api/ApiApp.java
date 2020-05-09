@@ -33,7 +33,7 @@ public class ApiApp {
 
     @GetMapping("/knowledge/")
     public Collection<Knowledge> knowledge() {
-        log.info("-> api/person/  -- means all persond");
+        log.info("-> api/knowledge/  -- means all persond");
         return (Collection<Knowledge>) rKnowledge.findAll();
     }
 }
