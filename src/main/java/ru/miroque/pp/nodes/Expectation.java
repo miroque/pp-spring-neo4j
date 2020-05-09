@@ -29,6 +29,7 @@ public class Expectation {
     @Relationship(type = "PROOF", direction = Relationship.INCOMING)
     public Knowledge knowledge;
 
+    @JsonIgnoreProperties({"expectation", "answer"})
     @Relationship(type = "ASKED")
     public List<Question> questions;
 }

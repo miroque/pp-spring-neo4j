@@ -1,5 +1,7 @@
 package ru.miroque.pp.nodes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -19,8 +21,9 @@ public class Answer {
     private Long id;
     private LocalDateTime given;
     private String value;
-    private String valid;
+    private Boolean valid;
 
+    @JsonIgnoreProperties("answer")
     @Relationship(type = "ANSWERED", direction = Relationship.INCOMING)
-    public Question answer;
+    public Question question;
 }
