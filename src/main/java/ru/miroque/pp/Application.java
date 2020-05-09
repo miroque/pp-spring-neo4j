@@ -14,16 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ru.miroque.pp_spring_neo4j;
+package ru.miroque.pp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+@SpringBootApplication
+public class Application {
 
-import ru.miroque.pp.domains.Knowledge;
+	private final static Logger log = LoggerFactory.getLogger(Application.class);
 
-//@RepositoryRestResource(collectionResourceRel = "knowledges", path = "knowledges")
-public interface KnowledgeRepository extends CrudRepository<Knowledge, Long> {
-
-    Knowledge findByName(String name);
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(Application.class, args);
+	}
 
 }

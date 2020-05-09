@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -38,7 +39,8 @@ public class Knowledge {
     private LocalDateTime recalculated;
     private String name;
     private Integer level;
-    
+
+    @JsonIgnoreProperties("knowledges")
     @Relationship(type = "KNOW", direction = Relationship.UNDIRECTED)
     public List<Knowledge> knowledges;
 

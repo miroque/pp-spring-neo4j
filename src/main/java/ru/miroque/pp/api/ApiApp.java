@@ -1,29 +1,39 @@
 package ru.miroque.pp.api;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Collection;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.miroque.pp.domains.Person;
-import ru.miroque.pp_spring_neo4j.PersonRepository;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
+import ru.miroque.pp.domains.Knowledge;
+import ru.miroque.pp.domains.Person;
+import ru.miroque.pp.repositories.RepositoryKnowledge;
+import ru.miroque.pp.repositories.RepositoryPerson;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/app")
+@RequestMapping("/api/")
 public class ApiApp {
-    private final PersonRepository repository;
+    
+    private final RepositoryPerson rPerson;
+    private final RepositoryKnowledge rKnowledge;
 
-    public ApiApp(PersonRepository repository) {
-        this.repository = repository;
+    public ApiApp(RepositoryPerson repository, RepositoryKnowledge rKnowledge) {
+        this.rPerson = repository;
+        this.rKnowledge = rKnowledge;
     }
 
-    @GetMapping("/")
-    public Collection<Person> location() {
-        log.info("-> api/app/");
-        return (Collection<Person>) repository.findAll();
+    @GetMapping("/person/")
+    public Collection<Person> person() {
+        log.info("-> api/person/  -- means all persond");
+        return (Collection<Person>) rPerson.findAll();
+    }
+
+    @GetMapping("/knowledge/")
+    public Collection<Knowledge> knowledge() {
+        log.info("-> api/person/  -- means all persond");
+        return (Collection<Knowledge>) rKnowledge.findAll();
     }
 }
