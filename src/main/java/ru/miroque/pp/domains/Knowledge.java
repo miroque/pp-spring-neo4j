@@ -17,12 +17,18 @@
 package ru.miroque.pp.domains;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+
+@Data
+@NoArgsConstructor
 
 @NodeEntity
 public class Knowledge {
@@ -34,47 +40,7 @@ public class Knowledge {
     private Integer level;
     
     @Relationship(type = "KNOW", direction = Relationship.UNDIRECTED)
-    public Set<Knowledge> knowledges;
-
-    public Knowledge() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public LocalDateTime getRecalculated() {
-        return recalculated;
-    }
-
-    public void setRecalculated(LocalDateTime recalculated) {
-        this.recalculated = recalculated;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Set<Knowledge> getKnowledges() {
-        return knowledges;
-    }
-
-    public void setKnowledges(Set<Knowledge> knowledges) {
-        this.knowledges = knowledges;
-    }
-
+    public List<Knowledge> knowledges;
 
     @Override
     public String toString() {

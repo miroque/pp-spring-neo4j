@@ -23,11 +23,16 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.id.UuidStrategy;
+
+@Data
+@NoArgsConstructor
 
 @NodeEntity
 public class Person {
@@ -40,9 +45,6 @@ public class Person {
     private String login;
     private Integer level;
 
-    @SuppressWarnings("unused")
-    private Person() {
-    };
 
     public Person(String login) {
         this.login = login;
@@ -54,54 +56,6 @@ public class Person {
     public String toString() {
         return this.login + "'s knowledges => " + Optional.ofNullable(this.knowledges).orElse(Collections.emptySet())
                 .stream().map(Knowledge::getName).collect(Collectors.toList());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public LocalDateTime getRecalculated() {
-        return recalculated;
-    }
-
-    public void setRecalculated(LocalDateTime recalculated) {
-        this.recalculated = recalculated;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Set<Knowledge> getKnowledges() {
-        return knowledges;
-    }
-
-    public void setKnowledges(Set<Knowledge> knowledges) {
-        this.knowledges = knowledges;
     }
 
 }
