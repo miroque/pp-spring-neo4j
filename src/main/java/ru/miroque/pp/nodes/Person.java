@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ru.miroque.pp.domains;
+package ru.miroque.pp.nodes;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -32,21 +33,27 @@ import org.neo4j.ogm.annotation.Relationship;
 @NoArgsConstructor
 
 @NodeEntity
-public class Knowledge {
+public class Person {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     private Long id;
+    private String uuid;
     private LocalDateTime recalculated;
-    private String name;
+    private String login;
     private Integer level;
 
-    @JsonIgnoreProperties("knowledges")
+
+    public Person(String login) {
+        this.login = login;
+    }
+
     @Relationship(type = "KNOW", direction = Relationship.UNDIRECTED)
     public List<Knowledge> knowledges;
 
-    @Override
     public String toString() {
-        return "Knowledge [id=" + id + ", recalculated=" + recalculated + ", name=" + name + ", level=" + level + "]";
+        return this.login + "'s knowledges => " + Optional.ofNullable(this.knowledges).orElse(Collections.emptyList())
+                .stream().map(Knowledge::getName).collect(Collectors.toList());
     }
 
 }

@@ -14,49 +14,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package ru.miroque.pp.domains;
+package ru.miroque.pp.nodes;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import org.neo4j.ogm.id.UuidStrategy;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 
-@NodeEntity
-public class Person {
+@JsonInclude(JsonInclude.Include.NON_NULL)
 
+@NodeEntity
+public class Knowledge {
     @Id
-    @GeneratedValue()
+    @GeneratedValue
     private Long id;
-    private String uuid;
     private LocalDateTime recalculated;
-    private String login;
+    private String name;
     private Integer level;
 
-
-    public Person(String login) {
-        this.login = login;
-    }
-
+    @JsonIgnoreProperties("knowledges")
     @Relationship(type = "KNOW", direction = Relationship.UNDIRECTED)
     public List<Knowledge> knowledges;
 
+    @JsonIgnoreProperties("knowledge")
+    @Relationship(type = "PROOF")
+    public Expectation expectation;
+
+    @JsonIgnoreProperties("knowledge")
+    @Relationship(type = "PROOF")
+    public Check check;
+
+    @Override
     public String toString() {
-        return this.login + "'s knowledges => " + Optional.ofNullable(this.knowledges).orElse(Collections.emptyList())
-                .stream().map(Knowledge::getName).collect(Collectors.toList());
+        return "Knowledge [id=" + id + ", recalculated=" + recalculated + ", name=" + name + ", level=" + level + "]";
     }
 
 }
