@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  db:
+    image: neo4j
+    container_name: personal-profile.neo4j
+    hostname: neo4j
+    volumes:
+      - ./data/neo4j:/data
+      - ./data/import:/var/lib/neo4j/import
+    ports:
+      - 7474:7474
+      - 7687:7687
