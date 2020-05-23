@@ -15,6 +15,7 @@ import ru.miroque.pp.repositories.RepositoryPerson;
 import ru.miroque.pp.repositories.RepositoryQuestion;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -49,6 +50,18 @@ public class ApiApp {
         return ResponseEntity.ok(p);
     }
 
+    @PostMapping(value = "/person/{id}/knowledge", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Person> addKnowledgeToPerson(@PathVariable Long id, @RequestBody Knowledge item) {
+        log.info("-> new /person/");
+        Optional<Person> p = rPerson.findById(id);
+        p.ifPresent(person -> {
+            person.addKnowledge(item);
+            rPerson.save(p.get());
+        });
+        log.info("<- new /person/");
+        return ResponseEntity.ok(p.get());
+    }
+
     @GetMapping("/knowledge/")
     public Collection<Knowledge> knowledge() {
         log.info("-> api/knowledge/  -- means all persond");
@@ -56,16 +69,21 @@ public class ApiApp {
     }
 
 
-    @PostMapping(value = "/knowledge/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Knowledge> person(@RequestBody Knowledge item) {
+    @PostMapping(value = "/knowledge/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Knowledge> newKnowledge(@PathVariable Long id, @RequestBody Knowledge item) {
         //TODO:
         // Here we need get from FRONTEND some info about to WHOM PERSON
         // need add new Knowledge and if this adding to node or to person
         // i need create RELATION to this something
         log.info("-> new /knowledge/");
-        Knowledge ent = rKnowledge.save(item);
-        log.info("<- new /knowledge/");
-        return ResponseEntity.ok(ent);
+//        Knowledge ent = rKnowledge.save(item);
+        Optional<Knowledge> cur = rKnowledge.findById(id);
+//        cur.ifPresent(item::addKnowledge);
+        cur.ifPresent(c -> c.addKnowledge(item));
+        rKnowledge.save(cur.get());
+//        log.info("<- new /knowledge/   way-01: save new item"); - NO success
+        log.info("<- new /knowledge/   way-02: save current item");
+        return ResponseEntity.ok(item);
     }
 
     @GetMapping("/expectation/")

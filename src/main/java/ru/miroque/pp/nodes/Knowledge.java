@@ -19,6 +19,7 @@ package ru.miroque.pp.nodes;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
@@ -26,10 +27,13 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"knowledges","expectation","check"})
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
@@ -43,7 +47,7 @@ public class Knowledge {
     private Integer level;
 
     @JsonIgnoreProperties("knowledges")
-    @Relationship(type = "KNOW", direction = Relationship.UNDIRECTED)
+    @Relationship(type = "KNOW",direction = Relationship.OUTGOING)
     public List<Knowledge> knowledges;
 
     @JsonIgnoreProperties("knowledge")
@@ -53,6 +57,28 @@ public class Knowledge {
     @JsonIgnoreProperties("knowledge")
     @Relationship(type = "PROOF")
     public Check check;
+
+    public Knowledge addKnowledge(final Knowledge newKnowledge){
+        if (knowledges == null){
+            knowledges = new ArrayList<>();
+        }
+        knowledges.add(newKnowledge);
+        return newKnowledge;
+    }
+
+        /*
+
+           BandEntity addMember(final SoloArtistEntity soloArtist, final Year joinedIn, final Year leftIn) {
+        Optional<Member> existingMember = this.member.stream()
+            .filter(m -> m.getArtist().equals(soloArtist) && m.getJoinedIn().equals(joinedIn)).findFirst();
+        existingMember.ifPresentOrElse(m -> m.setLeftIn(leftIn), () -> {
+            this.member.add(new Member(this, soloArtist, joinedIn, leftIn));
+        });
+
+        return this;
+    }
+
+        * */
 
     @Override
     public String toString() {

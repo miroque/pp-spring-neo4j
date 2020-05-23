@@ -17,6 +17,7 @@
 package ru.miroque.pp.nodes;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -48,8 +49,16 @@ public class Person {
         this.login = login;
     }
 
-    @Relationship(type = "KNOW", direction = Relationship.UNDIRECTED)
+    @Relationship(type = "KNOW", direction = Relationship.OUTGOING)
     public List<Knowledge> knowledges;
+
+    public Knowledge addKnowledge(final Knowledge newKnowledge){
+        if (knowledges == null){
+            knowledges = new ArrayList<>();
+        }
+        knowledges.add(newKnowledge);
+        return newKnowledge;
+    }
 
     public String toString() {
         return this.login + "'s knowledges => " + Optional.ofNullable(this.knowledges).orElse(Collections.emptyList())

@@ -5,10 +5,15 @@ POST http://localhost:8080/api/person/
 Content-Type: application/json
 
 {
-  "uuid": "1100000-0000-0000-0000-000000000000",
-  "recalculated": null,
-  "login": "gherzan",
-  "level": null
+  "uuid": "1100000-0000-0000-0000-000000000000"
+}
+
+###
+POST http://localhost:8080/api/person/26/knowledge
+Content-Type: application/json
+
+{
+  "name": "Manager"
 }
 
 ###
@@ -20,6 +25,13 @@ Content-Type: application/json
 
 {
     "name": "new some testing"
+}
+###
+POST http://localhost:8080/api/knowledge/46
+Content-Type: application/json
+
+{
+    "name": "VIM mode"
 }
 ###
 GET http://localhost:8080/api/expectation/
