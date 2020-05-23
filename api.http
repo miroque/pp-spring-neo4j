@@ -1,9 +1,26 @@
 ###
 GET http://localhost:8080/api/person/
+###
+POST http://localhost:8080/api/person/
+Content-Type: application/json
+
+{
+  "uuid": "1100000-0000-0000-0000-000000000000",
+  "recalculated": null,
+  "login": "gherzan",
+  "level": null
+}
 
 ###
 GET http://localhost:8080/api/knowledge/
 
+###
+POST http://localhost:8080/api/knowledge/
+Content-Type: application/json
+
+{
+    "name": "new some testing"
+}
 ###
 GET http://localhost:8080/api/expectation/
 

@@ -1,9 +1,8 @@
 package ru.miroque.pp.api;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.miroque.pp.nodes.Answer;
 import ru.miroque.pp.nodes.Expectation;
 import ru.miroque.pp.nodes.Knowledge;
@@ -42,10 +41,31 @@ public class ApiApp {
         return (Collection<Person>) rPerson.findAll();
     }
 
+    @PostMapping(value = "/person/", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Person> person(@RequestBody Person person) {
+        log.info("-> new /person/");
+        Person p = rPerson.save(person);
+        log.info("<- new /person/");
+        return ResponseEntity.ok(p);
+    }
+
     @GetMapping("/knowledge/")
     public Collection<Knowledge> knowledge() {
         log.info("-> api/knowledge/  -- means all persond");
         return (Collection<Knowledge>) rKnowledge.findAll();
+    }
+
+
+    @PostMapping(value = "/knowledge/", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Knowledge> person(@RequestBody Knowledge item) {
+        //TODO:
+        // Here we need get from FRONTEND some info about to WHOM PERSON
+        // need add new Knowledge and if this adding to node or to person
+        // i need create RELATION to this something
+        log.info("-> new /knowledge/");
+        Knowledge ent = rKnowledge.save(item);
+        log.info("<- new /knowledge/");
+        return ResponseEntity.ok(ent);
     }
 
     @GetMapping("/expectation/")
