@@ -17,18 +17,20 @@
 package ru.miroque.pp.nodes;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.neo4j.driver.types.Point;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
+import org.neo4j.ogm.annotation.typeconversion.DateLong;
+import org.neo4j.ogm.id.UuidStrategy;
+import org.neo4j.ogm.typeconversion.UuidStringConverter;
 
 @Data
 @NoArgsConstructor
@@ -36,13 +38,15 @@ import org.neo4j.ogm.annotation.Relationship;
 @NodeEntity
 public class Person {
 
-    @Id
-    @GeneratedValue()
     private Long id;
-    private String uuid;
+    @Id
+    @GeneratedValue(strategy = UuidStrategy.class)
+    @Convert(UuidStringConverter.class)
+    private UUID hook;
     private LocalDateTime recalculated;
     private String login;
     private Integer level;
+    private Point center;
 
 
     public Person(String login) {

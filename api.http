@@ -1,11 +1,26 @@
 ###
 GET http://localhost:8080/api/person/
+
+###
+curl -H "Content-Type: application/json" -d '{"uuid": "1100000-0000-0000-0000-000000000000", "login":"miroque"}' http://localhost:8080/api/person/
+
+
 ###
 POST http://localhost:8080/api/person/
 Content-Type: application/json
 
 {
-  "uuid": "1100000-0000-0000-0000-000000000000"
+  "login": "fooz"
+}
+
+###
+PUT http://localhost:8080/api/person/2e35fa07-34a6-44d5-8caa-a6c5fa0088d9/
+Content-Type: application/json
+
+{
+  "login": "foo-1-z",
+  "level": 200,
+  "recalculated": "2020-01-01T16:01:01"
 }
 
 ###

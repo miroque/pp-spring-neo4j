@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import ru.miroque.pp.nodes.Person;
 
+import java.util.UUID;
+
 @Repository
-public interface RepositoryPerson extends Neo4jRepository<Person, Long> {
+public interface RepositoryPerson extends Neo4jRepository<Person, UUID> {
 
 }

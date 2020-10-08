@@ -16,6 +16,7 @@ import ru.miroque.pp.repositories.RepositoryQuestion;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -35,23 +36,19 @@ public class ApiApp {
         this.rAnswer = rAnswer;
         this.rQuestion = rQuestion;
     }
-
-    @GetMapping("/person/")
-    public Collection<Person> person() {
-        log.info("-> api/person/  -- means all persond");
-        return (Collection<Person>) rPerson.findAll();
-    }
-
-    @PostMapping(value = "/person/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Person> person(@RequestBody Person person) {
-        log.info("-> new /person/");
-        Person p = rPerson.save(person);
-        log.info("<- new /person/");
-        return ResponseEntity.ok(p);
-    }
+	/*
+	 * @GetMapping("/person/") public Collection<Person> person() {
+	 * log.info("-> api/person/  -- means all persond"); return (Collection<Person>)
+	 * rPerson.findAll(); }
+	 * 
+	 * @PostMapping(value = "/person/", consumes = "application/json", produces =
+	 * "application/json") public ResponseEntity<Person> person(@RequestBody Person
+	 * person) { log.info("-> new /person/"); Person p = rPerson.save(person);
+	 * log.info("<- new /person/"); return ResponseEntity.ok(p); }
+	 */
 
     @PostMapping(value = "/person/{id}/knowledge", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Person> addKnowledgeToPerson(@PathVariable Long id, @RequestBody Knowledge item) {
+    public ResponseEntity<Person> addKnowledgeToPerson(@PathVariable UUID id, @RequestBody Knowledge item) {
         log.info("-> new /person/");
         Optional<Person> p = rPerson.findById(id);
         p.ifPresent(person -> {
@@ -62,11 +59,11 @@ public class ApiApp {
         return ResponseEntity.ok(p.get());
     }
 
-    @GetMapping("/knowledge/")
-    public Collection<Knowledge> knowledge() {
-        log.info("-> api/knowledge/  -- means all persond");
-        return (Collection<Knowledge>) rKnowledge.findAll();
-    }
+	/*
+	 * @GetMapping("/knowledge/") public Collection<Knowledge> knowledge() {
+	 * log.info("-> api/knowledge/  -- means all persond"); return
+	 * (Collection<Knowledge>) rKnowledge.findAll(); }
+	 */
 
 
     @PostMapping(value = "/knowledge/{id}", consumes = "application/json", produces = "application/json")
