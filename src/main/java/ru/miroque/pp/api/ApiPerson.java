@@ -32,7 +32,7 @@ public class ApiPerson {
         return ResponseEntity.ok(p);
     }
 
-    @PutMapping(value = "/{id}/", consumes = "application/json", produces = "application/json")
+/*    @PutMapping(value = "/{id}/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Person> edit(@PathVariable(name = "id") Person person, @RequestBody Person edited) {
         log.info("-> edit /person/::{}", person.getId());
 //        rPerson.findById(person);
@@ -42,6 +42,6 @@ public class ApiPerson {
         Person p = rPerson.save(edited);
         log.info("<- edit /person/::{}", person.getId());
         return ResponseEntity.ok(p);
-    }
+    }*/
 
 }

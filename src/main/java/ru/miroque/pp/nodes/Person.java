@@ -16,10 +16,6 @@
  *******************************************************************************/
 package ru.miroque.pp.nodes;
 
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.neo4j.driver.types.Point;
@@ -28,16 +24,18 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.Convert;
-import org.neo4j.ogm.annotation.typeconversion.DateLong;
 import org.neo4j.ogm.id.UuidStrategy;
 import org.neo4j.ogm.typeconversion.UuidStringConverter;
+
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
 
 @NodeEntity
 public class Person {
-
     private Long id;
     @Id
     @GeneratedValue(strategy = UuidStrategy.class)
@@ -65,7 +63,11 @@ public class Person {
     }
 
     public String toString() {
-        return this.login + "'s knowledges => " + Optional.ofNullable(this.knowledges).orElse(Collections.emptyList())
+        return "id::" + this.getId()
+                + " hook::" +this.getHook()
+                + " recalculated::" +this.getRecalculated()
+                + " level::" +this.getLevel()
+                + " " + this.login + "'s knowledges => " + Optional.ofNullable(this.knowledges).orElse(Collections.emptyList())
                 .stream().map(Knowledge::getName).collect(Collectors.toList());
     }
 
