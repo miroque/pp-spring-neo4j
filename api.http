@@ -41,6 +41,7 @@ Content-Type: application/json
 {
     "name": "new some testing"
 }
+
 ###
 POST http://localhost:8080/api/knowledge/46
 Content-Type: application/json
@@ -48,6 +49,7 @@ Content-Type: application/json
 {
     "name": "VIM mode"
 }
+
 ###
 GET http://localhost:8080/api/expectation/
 

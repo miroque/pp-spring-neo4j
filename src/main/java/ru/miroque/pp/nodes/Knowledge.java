@@ -33,7 +33,7 @@ import java.util.Optional;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"knowledges","expectation","check"})
+@EqualsAndHashCode(exclude = {"knowledges", "expectation", "check"})
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
@@ -47,7 +47,7 @@ public class Knowledge {
     private Integer level;
 
     @JsonIgnoreProperties("knowledges")
-    @Relationship(type = "KNOW",direction = Relationship.OUTGOING)
+    @Relationship(type = "KNOW", direction = Relationship.OUTGOING)
     public List<Knowledge> knowledges;
 
     @JsonIgnoreProperties("knowledge")
@@ -58,8 +58,8 @@ public class Knowledge {
     @Relationship(type = "PROOF")
     public Check check;
 
-    public Knowledge addKnowledge(final Knowledge newKnowledge){
-        if (knowledges == null){
+    public Knowledge addKnowledge(final Knowledge newKnowledge) {
+        if (knowledges == null) {
             knowledges = new ArrayList<>();
         }
         knowledges.add(newKnowledge);

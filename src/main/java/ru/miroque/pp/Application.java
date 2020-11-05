@@ -15,6 +15,7 @@
  * limitations under the License.
  *******************************************************************************/
 package ru.miroque.pp;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -23,10 +24,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
-	private final static Logger log = LoggerFactory.getLogger(Application.class);
+    private final static Logger log = LoggerFactory.getLogger(Application.class);
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(Application.class, args);
+    }
 
 }

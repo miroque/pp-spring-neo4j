@@ -34,13 +34,13 @@ public class ApiKnowledge {
         log.info("<- create /knowledge/");
         return ResponseEntity.ok(p);
     }
-    
+
     @PutMapping(value = "/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Knowledge> edit(@RequestBody Knowledge person) {
-    	log.info("-> edit /knowledge/::{}", person.getId());
-    	Knowledge p = rKnowledge.save(person);
-    	log.info("<- edit /knowledge/::{}", person.getId());
-    	return ResponseEntity.ok(p);
+        log.info("-> edit /knowledge/::{}", person.getId());
+        Knowledge p = rKnowledge.save(person);
+        log.info("<- edit /knowledge/::{}", person.getId());
+        return ResponseEntity.ok(p);
     }
 
 }

@@ -36,16 +36,16 @@ public class ApiApp {
         this.rAnswer = rAnswer;
         this.rQuestion = rQuestion;
     }
-	/*
-	 * @GetMapping("/person/") public Collection<Person> person() {
-	 * log.info("-> api/person/  -- means all persond"); return (Collection<Person>)
-	 * rPerson.findAll(); }
-	 * 
-	 * @PostMapping(value = "/person/", consumes = "application/json", produces =
-	 * "application/json") public ResponseEntity<Person> person(@RequestBody Person
-	 * person) { log.info("-> new /person/"); Person p = rPerson.save(person);
-	 * log.info("<- new /person/"); return ResponseEntity.ok(p); }
-	 */
+    /*
+     * @GetMapping("/person/") public Collection<Person> person() {
+     * log.info("-> api/person/  -- means all persond"); return (Collection<Person>)
+     * rPerson.findAll(); }
+     *
+     * @PostMapping(value = "/person/", consumes = "application/json", produces =
+     * "application/json") public ResponseEntity<Person> person(@RequestBody Person
+     * person) { log.info("-> new /person/"); Person p = rPerson.save(person);
+     * log.info("<- new /person/"); return ResponseEntity.ok(p); }
+     */
 
     @PostMapping(value = "/person/{id}/knowledge", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Person> addKnowledgeToPerson(@PathVariable UUID id, @RequestBody Knowledge item) {
@@ -59,11 +59,11 @@ public class ApiApp {
         return ResponseEntity.ok(p.get());
     }
 
-	/*
-	 * @GetMapping("/knowledge/") public Collection<Knowledge> knowledge() {
-	 * log.info("-> api/knowledge/  -- means all persond"); return
-	 * (Collection<Knowledge>) rKnowledge.findAll(); }
-	 */
+    /*
+     * @GetMapping("/knowledge/") public Collection<Knowledge> knowledge() {
+     * log.info("-> api/knowledge/  -- means all persond"); return
+     * (Collection<Knowledge>) rKnowledge.findAll(); }
+     */
 
 
     @PostMapping(value = "/knowledge/{id}", consumes = "application/json", produces = "application/json")
@@ -88,11 +88,13 @@ public class ApiApp {
         log.info("-> api/expectation/  -- means all persond");
         return (Collection<Expectation>) rExpectation.findAll();
     }
+
     @GetMapping("/answer/")
     public Collection<Answer> answer() {
         log.info("-> api/answer/  -- means all persond");
         return (Collection<Answer>) rAnswer.findAll();
     }
+
     @GetMapping("/question/")
     public Collection<Question> question() {
         log.info("-> api/question/  -- means all persond");

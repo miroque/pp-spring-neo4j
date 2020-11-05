@@ -56,8 +56,8 @@ public class Person {
     @Relationship(type = "KNOW", direction = Relationship.OUTGOING)
     public List<Knowledge> knowledges;
 
-    public Knowledge addKnowledge(final Knowledge newKnowledge){
-        if (knowledges == null){
+    public Knowledge addKnowledge(final Knowledge newKnowledge) {
+        if (knowledges == null) {
             knowledges = new ArrayList<>();
         }
         knowledges.add(newKnowledge);
