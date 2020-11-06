@@ -33,8 +33,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @Testcontainers
@@ -68,24 +67,39 @@ class PpSpringNeo4jApplicationTests {
     @Test
     void testCreate() {
         Person item = new Person("bar");
-        log.info("created\t::{}",item);
         assertNull(item.getId());
         item = rPerson.save(item);
-        log.info("saved\t\t::{}",item);
-        rPerson.findAll().forEach(person -> log.info("{}", person));
+        assertNotNull(item.getId());
     }
 
     @DisplayName("Редактирование персоны")
     @Test
     void testEdit() {
-        rPerson.findAll();
+        Person item = new Person("bar");
+        assertNull(item.getId());
+        item = rPerson.save(item);
+        assertNotNull(item.getId());
+        assertEquals("bar", item.getLogin());
+        item.setLogin("foo");
+        item.setLevel(99);
+        item = rPerson.save(item);
+        UUID nid = item.getHook();
+        Optional<Person> check = rPerson.findById(nid);
+        assertEquals(item.getLogin(), check.get().getLogin());
+        assertEquals(item.getLevel(),  check.get().getLevel());
     }
 
 
     @DisplayName("Удаление персоны")
     @Test
     void testDelete() {
-        rPerson.findAll();
+        Person item = new Person("bar");
+        assertNull(item.getId());
+        item = rPerson.save(item);
+        assertNotNull(item.getId());
+        rPerson.delete(item);
+        Optional<Person> check = rPerson.findByLogin("bar");
+        assertFalse(check.isPresent());
     }
 
     @DisplayName("Найти персону по логину")
@@ -93,7 +107,7 @@ class PpSpringNeo4jApplicationTests {
     void testFind() {
         Optional<Person> item = rPerson.findByLogin("foo");
         assertTrue(item.isPresent());
-        rPerson.findAll().forEach(person -> log.info("{}", person));
+//        rPerson.findAll().forEach(person -> log.info("{}", person));
     }
 
 }

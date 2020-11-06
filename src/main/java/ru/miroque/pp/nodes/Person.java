@@ -44,7 +44,7 @@ public class Person {
     private LocalDateTime recalculated;
     private String login;
     private Integer level;
-    private Point center;
+//    private Point center;
 
 
     public Person(String login) {
