@@ -13,11 +13,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *******************************************************************************/
+ *******************************************************************************//*
+
 package ru.miroque.pp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
+import org.junit.runners.Suite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
@@ -36,8 +38,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
-@Testcontainers
-@SpringBootTest
+//@Testcontainers
 class PpSpringNeo4jApplicationTests {
     @Container
     public static final Neo4jContainer neo4jContainer = new Neo4jContainer().withAdminPassword(null);
@@ -49,7 +50,7 @@ class PpSpringNeo4jApplicationTests {
     }
 
     @Autowired
-    private RepositoryPerson rPerson;
+    public RepositoryPerson rPerson;
 
     @BeforeEach
     void before() {
@@ -63,51 +64,5 @@ class PpSpringNeo4jApplicationTests {
     }
 
 
-    @DisplayName("Создание персоны")
-    @Test
-    void testCreate() {
-        Person item = new Person("bar");
-        assertNull(item.getId());
-        item = rPerson.save(item);
-        assertNotNull(item.getId());
-    }
-
-    @DisplayName("Редактирование персоны")
-    @Test
-    void testEdit() {
-        Person item = new Person("bar");
-        assertNull(item.getId());
-        item = rPerson.save(item);
-        assertNotNull(item.getId());
-        assertEquals("bar", item.getLogin());
-        item.setLogin("foo");
-        item.setLevel(99);
-        item = rPerson.save(item);
-        UUID nid = item.getHook();
-        Optional<Person> check = rPerson.findById(nid);
-        assertEquals(item.getLogin(), check.get().getLogin());
-        assertEquals(item.getLevel(),  check.get().getLevel());
-    }
-
-
-    @DisplayName("Удаление персоны")
-    @Test
-    void testDelete() {
-        Person item = new Person("bar");
-        assertNull(item.getId());
-        item = rPerson.save(item);
-        assertNotNull(item.getId());
-        rPerson.delete(item);
-        Optional<Person> check = rPerson.findByLogin("bar");
-        assertFalse(check.isPresent());
-    }
-
-    @DisplayName("Найти персону по логину")
-    @Test
-    void testFind() {
-        Optional<Person> item = rPerson.findByLogin("foo");
-        assertTrue(item.isPresent());
-//        rPerson.findAll().forEach(person -> log.info("{}", person));
-    }
-
 }
+*/
