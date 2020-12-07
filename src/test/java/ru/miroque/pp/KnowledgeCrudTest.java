@@ -104,5 +104,33 @@ public class KnowledgeCrudTest {
         rKnowledge.findAll().forEach(i -> log.info("{}", i));
     }
 
+    @DisplayName("Добавление знания в знание")
+    @Test
+    void testCreateSub() {
+        Optional<Person> optPerson = rPerson.findByLogin(USER_LOGIN);
+        assertTrue(optPerson.isPresent());
+
+        Knowledge kn1 = new Knowledge();
+        kn1.setName("первое знание");
+        kn1.setLevel(50);
+        kn1.setRecalculated(LocalDateTime.now());
+
+        Knowledge kn2 = new Knowledge();
+        kn2.setName("подзнание знание");
+        kn2.setLevel(20);
+        kn2.setRecalculated(LocalDateTime.now());
+
+        kn1.addKnowledge(kn2);
+
+        optPerson.get().addKnowledge(kn1);
+
+        Person check = rPerson.save(optPerson.get());
+        assertTrue(check.getKnowledges().contains(kn1));
+        assertTrue(check.getKnowledges().get(check.getKnowledges().indexOf(kn1)).getKnowledges().contains(kn2));
+
+        rPerson.findAll().forEach(i -> log.info("{}", i));
+        rKnowledge.findAll().forEach(i -> log.info("{}", i));
+    }
+
 
 }

@@ -40,11 +40,10 @@ public class Person {
     @Id
     @GeneratedValue(strategy = UuidStrategy.class)
     @Convert(UuidStringConverter.class)
-    private UUID hook;
+    private UUID nid;
     private LocalDateTime recalculated;
     private String login;
     private Integer level;
-//    private Point center;
 
 
     public Person(String login) {
@@ -64,7 +63,7 @@ public class Person {
 
     public String toString() {
         return "id::" + this.getId()
-                + " hook::" +this.getHook()
+                + " nid::" +this.getNid()
                 + " recalculated::" +this.getRecalculated()
                 + " level::" +this.getLevel()
                 + " " + this.login + "'s knowledges => " + Optional.ofNullable(this.knowledges).orElse(Collections.emptyList())

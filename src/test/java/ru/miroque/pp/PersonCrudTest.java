@@ -66,7 +66,7 @@ public class PersonCrudTest{
         item.setLogin("foo");
         item.setLevel(99);
         item = rPerson.save(item);
-        UUID nid = item.getHook();
+        UUID nid = item.getNid();
         Optional<Person> check = rPerson.findById(nid);
         assertEquals(item.getLogin(), check.get().getLogin());
         assertEquals(item.getLevel(),  check.get().getLevel());

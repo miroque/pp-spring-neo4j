@@ -25,11 +25,15 @@ import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
+import org.neo4j.ogm.id.UuidStrategy;
+import org.neo4j.ogm.typeconversion.UuidStringConverter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -39,9 +43,20 @@ import java.util.Optional;
 
 @NodeEntity
 public class Knowledge {
-    @Id
-    @GeneratedValue
+    /**
+     * Neo4j ID
+     */
     private Long id;
+    /**
+     * Natural ID
+     */
+    @Id
+    @GeneratedValue(strategy = UuidStrategy.class)
+    @Convert(UuidStringConverter.class)
+    private UUID nid;
+    /**
+     * Дата и время перерасчета ::урвня
+     */
     private LocalDateTime recalculated;
     private String name;
     private Integer level;
@@ -82,7 +97,7 @@ public class Knowledge {
 
     @Override
     public String toString() {
-        return "Knowledge [id=" + id + ", recalculated=" + recalculated + ", name=" + name + ", level=" + level + "]";
+        return id + ":Knowledge [name=" + name + ", recalculated=" + recalculated +  ", level=" + level + ", nid="+ nid + "]";
     }
 
 }
