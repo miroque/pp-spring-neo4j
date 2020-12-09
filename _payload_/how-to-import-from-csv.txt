@@ -1,0 +1,50 @@
+LOAD CSV WITH HEADERS FROM "file:///loc.csv" AS row
+CREATE (n:Location)
+SET n = row,
+n.id = toInteger(row.id),
+n.parent = toInteger(row.parent_id),
+n.name = toString(row.name)
+
+
+CREATE INDEX ON :Location(id)
+
+MATCH (p:Location) WITH p MATCH (l:Location)
+WHERE p.id = l.parent
+CREATE (p)-[:PARENT_FOR]->(l);
+
+MATCH (n:Location{key:4})-[:PARENT_FOR]->(c:Location)  RETURN n,c
+
+-------------- ORGANIZATION --------------------------
+LOAD CSV WITH HEADERS FROM "file:///orgs.csv" AS row
+CREATE (n:Organization)
+SET n = row,
+n.id = toInteger(row.id),
+n.address = row.address,
+n.name = row.name,
+n.loc = toInteger(row.loc)
+
+CREATE INDEX ON :Organization(id)
+
+MATCH (z:Organization) WITH z MATCH(l:Location)
+WHERE z.loc = l.key
+CREATE (l)-[:PLACED]->(z);
+
+
+
+-------------- APS --------------------------
+LOAD CSV WITH HEADERS FROM "file:///aps.csv" AS row
+CREATE (n:AP)
+SET n = row,
+n.idd = toInteger(row.idd),
+n.org = toInteger(row.org)
+
+CREATE INDEX ON :AP(id)
+CREATE INDEX FOR (a:AP) on (a.idd)
+
+MATCH (a:AP{tt:"ESPD"}) WITH a MATCH(z:Organization)
+WHERE a.org = z.id
+CREATE (z)-[:ESPD]->(a);
+
+MATCH (a:AP{tt:"SMO"}) WITH a MATCH(z:Organization)
+WHERE a.org = z.id
+CREATE (z)-[:SMO]->(a);
