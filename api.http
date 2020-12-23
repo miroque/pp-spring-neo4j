@@ -1,3 +1,17 @@
+### Work with Person
+
+### ADD PERSON
+POST http://localhost:8080/api/person/
+Content-Type: application/json
+
+{
+  "login": "supreme  column"
+}
+
+### GET PERSON DATA
+GET http://localhost:8080/api/person/f8be4475-f570-449c-8888-f57c635e2228
+#Content-Type: application/json
+
 ###
 GET http://localhost:8080/api/person/
 

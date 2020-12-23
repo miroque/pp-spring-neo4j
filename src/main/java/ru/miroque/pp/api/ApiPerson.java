@@ -1,10 +1,15 @@
 package ru.miroque.pp.api;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.miroque.pp.errors.ExceptionNotFound;
 import ru.miroque.pp.nodes.Person;
 import ru.miroque.pp.repositories.RepositoryPerson;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -30,6 +35,20 @@ public class ApiPerson {
         Person p = rPerson.save(person);
         log.info("<- create /person/");
         return ResponseEntity.ok(p);
+    }
+
+    @GetMapping(value = "/{nid}", produces = "application/json")
+    public ResponseEntity<Person> get(@PathVariable UUID nid) throws ExceptionNotFound {
+        log.info("-> get /person/nid::{}", nid);
+        Optional<Person> p = rPerson.findById(nid);
+        if (p.isPresent()){
+            log.info("<- get /person/nid::{}", nid);
+            return ResponseEntity.ok(p.get());
+        } else {
+            log.warn("<-> get /person/nid::{}", nid);
+            throw new ExceptionNotFound("No such person");
+        }
+
     }
 
 /*    @PutMapping(value = "/{id}/", consumes = "application/json", produces = "application/json")
