@@ -1,5 +1,7 @@
 package ru.miroque.pp.api;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ public class ApiPerson {
         this.rPerson = repository;
     }
 
+    @ApiOperation(value = "Получить список всех персон", notes = "Вобще-то так себе метод он не нужен")
     @GetMapping("/")
     public Iterable<Person> all() {
         log.info("-> api/person/");
@@ -29,6 +32,7 @@ public class ApiPerson {
         return rPerson.findAll();
     }
 
+    @ApiOperation(value = "Создает новую персону")
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Person> create(@RequestBody Person person) {
         log.info("-> create /person/");

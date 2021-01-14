@@ -16,6 +16,8 @@
  *******************************************************************************/
 package ru.miroque.pp.nodes;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.neo4j.driver.types.Point;
@@ -34,14 +36,18 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 
+@ApiModel(description = "Персона которая вот про которую мы всё хистори и ведем")
 @NodeEntity
 public class Person {
     private Long id;
+    @ApiModelProperty(value = "Натуральный айди, ууид")
     @Id
     @GeneratedValue(strategy = UuidStrategy.class)
     @Convert(UuidStringConverter.class)
     private UUID nid;
+    @ApiModelProperty(value = "Это время когда произошло перерасчет всего древа знаний")
     private LocalDateTime recalculated;
+    @ApiModelProperty(value = "Логин, может быть любым и может повторятся")
     private String login;
     private Integer level;
 
